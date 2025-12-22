@@ -1,0 +1,24 @@
+# Virtual environment
+venv/
+env/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# PyCharm
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Output files
+outputs/*.png
+outputs/*.csv
+
+# Large data files
+data/raw_opinions/*.txt
