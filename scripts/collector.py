@@ -25,6 +25,5 @@ def main():
     print(f"Characters: {count['characters']}")
     print(f"First 100 characters: {opinion_file[:100]}")
 
-# This runs main() when you execute the script
 if __name__ == "__main__":
     main()
