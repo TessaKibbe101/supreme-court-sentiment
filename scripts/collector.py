@@ -2,6 +2,7 @@ from nltk.sentiment.vader import SentimentIntensityAnalyzer
 import textstat
 import pandas as pd
 import os
+import sys
 def read_opinion_file(filepath):
     try:
         with open(filepath, 'r') as f:
@@ -56,7 +57,16 @@ def save_to_csv(case_name, year, stats, sentiment, readability, filepath):
         df.to_csv(filepath, mode='w', header=True, index=False)
 
 def main():
-    opinion_file = read_opinion_file("/Users/tessakibbe/supreme-court-sentiment/data/raw_opinions/Harvard_2023.txt")
+
+    if len(sys.argv) != 4:
+        print('Usage: python scripts/collector.py <case_name> <year> <filepath>')
+        return
+    case_name = sys.argv[1]
+    year = int(sys.argv[2])
+    filepath = sys.argv[3]
+
+    opinion_file = read_opinion_file(filepath)
+
     if opinion_file is None:
         return
 
@@ -64,7 +74,7 @@ def main():
     sentiment = analyze_sentiment(opinion_file)
     readability = calculate_readability(opinion_file)
 
-    print("Case: Harvard Affirmative Action 2023")
+    print(f"Case: {case_name}, {year}")
     print(f"Words: {count['words']}")
     print(f"Characters: {count['characters']}\n")
     print("Sentiment Analysis: ")
@@ -80,8 +90,8 @@ def main():
     print(f"First 100 characters: {opinion_file[:100]}")
 
     save_to_csv(
-        case_name="Harvard Affirmative Action",
-        year=2023,
+        case_name=case_name,
+        year=year,
         stats=count,
         sentiment=sentiment,
         readability=readability,
